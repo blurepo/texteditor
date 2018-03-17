@@ -1,0 +1,15 @@
+body{
+	margin: 0;
+	background-color: #ffffff;
+}
+
+input{
+	background-color: #eeeeee;
+	outline: none;
+	border: 0;
+	width: 100%;
+}
+
+input:focus{
+	background-color: #dddddd;
+}
