@@ -1,7 +1,106 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<script
+		  src="https://code.jquery.com/jquery-3.3.1.min.js"
+		  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		  crossorigin="anonymous">
+	</script>
 </head>
 <body>
-	<input type="text">
-	<input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text">
+	<div class="test"></div>
+	<script src="lib/keysight.umd.js"></script>
+	<script>
+		var capsLockOn = false
+		var shiftPressed = false
+		var capsOn = false
+		var sh = false
+
+		function processKeys(cpl, shp){
+			var keyReturn = [[false],[false]]
+			if (cpl == true){
+				keyReturn[0] = false
+				if (shp == true){
+					keyReturn[1] = true
+				}else{
+					keyReturn[1] = false
+				}
+			}else{
+					keyReturn[0] = true
+					if (shp == true){
+						keyReturn[1] = false
+					}else{
+						keyReturn[1] = true
+					}
+			}
+			return keyReturn
+
+		}
+		$(function(){
+			sh = true
+			$(".test").append("<div class='selector' id='selectorShow' style='left: 86px; top: 80px; height: 16px;'>&nbsp;</div>")
+			$("body").keydown(function(event){
+				console.log(event.which)
+				var char = keysight(event).char
+				special_events = [8, 16, 20, 32]
+				if (!(special_events.includes(event.which))){
+						txt = $(".test").text()
+						if (!(capsOn)){
+							$(".test").append("<div class='charDiv'>" + char.toLowerCase() + "</div>")
+							$(".selector").remove()
+							sh = true
+							$(".test").append("<div class='selector' id='selectorShow' style='left: 86px; top: 80px; height: 16px;'>&nbsp;</div>")
+
+						}else{
+							$(".test").append("<div class='charDiv'>" + char.toUpperCase() + "</div>")
+							$(".selector").remove()
+							sh = true
+							$(".test").append("<div class='selector' id='selectorShow' style='left: 86px; top: 80px; height: 16px;'>&nbsp;</div>")
+						}
+				}else if (event.which == 8){
+					console.log('ehy')
+					$(".test").children().last().remove()
+					$(".test").children().last().remove()
+					sh = true
+					$(".test").append("<div class='selector' id='selectorShow' style='left: 86px; top: 80px; height: 16px;'>&nbsp;</div>")
+				}else if (event.which == 16){
+					shiftPressed = true
+					if (capsLockOn){
+							capsOn = false
+						}else{
+							capsOn = true
+						}
+				}else if(event.which == 20){
+					var newKeyData = processKeys(capsLockOn, shiftPressed)
+					capsLockOn = newKeyData[0]
+					capsOn = newKeyData[1]
+				}else if (event.which == 32){
+						$(".test").append("<div class='charDiv' id='charSpace'>" + char.toUpperCase() + "</div>")
+						$(".selector").remove()
+						sh = true
+						$(".test").append("<div class='selector' id='selectorShow' style='left: 86px; top: 80px; height: 16px;'>&nbsp;</div>")
+				}
+			})
+
+			$("body").keyup(function(event){
+					if (event.which ==  16){
+						shiftPressed = false
+						if (capsLockOn){
+							capsOn = true
+						}else{
+							capsOn = false
+						}
+					}
+			})
+			setInterval(function(){
+				if (sh == true){
+					sh = false
+					$(".selector").attr("id", "selectorHide")
+				}else{
+					sh = true
+					$(".selector").attr("id", "selectorShow")
+				}
+			}, 500);
+
+		})
+	</script>
 </body>
