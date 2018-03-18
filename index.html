@@ -39,7 +39,6 @@
 			sh = true
 			$(".test").append("<div class='selector' id='selectorShow' style='left: 86px; top: 80px; height: 16px;'>&nbsp;</div>")
 			$("body").keydown(function(event){
-				console.log(event.which)
 				var char = keysight(event).char
 				special_events = [8, 16, 20, 32]
 				if (!(special_events.includes(event.which))){
@@ -57,7 +56,6 @@
 							$(".test").append("<div class='selector' id='selectorShow' style='left: 86px; top: 80px; height: 16px;'>&nbsp;</div>")
 						}
 				}else if (event.which == 8){
-					console.log('ehy')
 					$(".test").children().last().remove()
 					$(".test").children().last().remove()
 					sh = true
