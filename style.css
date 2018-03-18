@@ -1,15 +1,29 @@
-body{
-	margin: 0;
-	background-color: #ffffff;
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+.test{
+	font-family: 'Roboto', sans-serif;
+
 }
 
-input{
-	background-color: #eeeeee;
-	outline: none;
-	border: 0;
-	width: 100%;
+.charDiv{
+	min-height: 1px;
+	float: left;
 }
 
-input:focus{
-	background-color: #dddddd;
+#selectorHide{
+	visibility: hidden;
+}
+
+#selectorShow{
+	visibility: visible;
+}
+
+#charSpace{
+	width: .25em;
+}
+
+.selector{
+	float: left;
+	border-left: 1px solid black;
+	border-right: none;
+	width: 0;
 }
